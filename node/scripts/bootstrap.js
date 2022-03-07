@@ -45,7 +45,7 @@ function ensurePkgJson(name, shortName) {
       name,
       version,
       description: name,
-      keywords: ['test'],
+      keywords: [shortName],
       main: 'index.js',
       types: `dist/${shortName}.d.ts`,
       module: `dist/${shortName}.esm.js`,
@@ -54,11 +54,11 @@ function ensurePkgJson(name, shortName) {
         type: 'git',
         url: '<%= gitUrl %>',
       },
-      homepage: `<%= gitUrl %>/packages/${shortName}#readme`,
+      homepage: `<%= gitHref %>/packages/${shortName}#readme`,
       bugs: {
-        url: '<%= gitUrl %>/issues',
+        url: '<%= gitHref %>/issues',
       },
-      author: 'liquan',
+      author: '<%= author %>',
       publishConfig: {
         registry: '<%= registry %>',
         access: 'public',
