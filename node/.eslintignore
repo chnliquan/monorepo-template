@@ -1,0 +1,13 @@
+# javascript
+bin/
+lib/
+scripts/
+cjs/
+esm/
+
+# settiing
+*.base.js
+*.config.js
+
+# test
+__tests__/**/*.js
