@@ -17,13 +17,8 @@
     "jsx": "react",
     "lib": ["esnext", "dom"],
     "paths": {
-      "@test/*": ["packages/*/src"]
+      "@<%= name %>/*": ["packages/*/src"]
     }
   },
-  "include": [
-    "packages/global.d.ts",
-    "packages/*/src",
-    "packages/*/__tests__",
-    "packages/core/__tests__"
-  ]
+  "include": ["packages/*/src", "packages/global.d.ts"]
 }
