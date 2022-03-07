@@ -1,0 +1,26 @@
+# https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
+
+# tests
+test
+coverage
+
+# linters
+.eslintrc
+.eslintignore
+
+# settings
+.idea/
+.editorconfig
+.prettierrc
+.npmrc
+tsconfig.json
+
+# other
+.DS_Store
+*.log.com
+.vscode/
+src/
+node_modules/
+scripts/
+examples/
+docs/
