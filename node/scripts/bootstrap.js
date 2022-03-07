@@ -54,7 +54,7 @@ function ensurePkgJson(name, shortName) {
         type: 'git',
         url: '<%= gitUrl %>',
       },
-      homepage: `<%= gitHref %>/packages/${shortName}#readme`,
+      homepage: `<%= gitHref %>/tree/master/packages/${shortName}#readme`,
       bugs: {
         url: '<%= gitHref %>/issues',
       },
