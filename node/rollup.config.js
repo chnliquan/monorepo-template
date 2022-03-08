@@ -2,6 +2,8 @@
 import path from 'path'
 import ts from 'rollup-plugin-typescript2'
 import replace from '@rollup/plugin-replace'
+import nodeResolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { logger } from '@eljs/node-utils'
 
@@ -24,21 +26,17 @@ function resolve(p) {
 let hasTSChecked = false
 
 const outputConfigs = {
-  esm: {
-    file: resolve(`dist/${name}.esm.js`),
-    format: `es`,
-  },
   cjs: {
     file: resolve(`dist/${name}.cjs.js`),
     format: `cjs`,
   },
-  global: {
-    file: resolve(`dist/${name}.global.js`),
-    format: `iife`,
+  esm: {
+    file: resolve(`dist/${name}.esm.js`),
+    format: `es`,
   },
 }
 
-const defaultFormats = ['esm', 'cjs']
+const defaultFormats = ['cjs', 'esm']
 const inlineFormats = process.env.FORMATS && process.env.FORMATS.split(',')
 const packageFormats = inlineFormats || packageOptions.formats || defaultFormats
 const packageConfigs = process.env.PROD_ONLY
@@ -50,14 +48,6 @@ if (process.env.NODE_ENV === 'production') {
     if (packageOptions.prod === false) {
       return
     }
-
-    if (format === 'cjs') {
-      packageConfigs.push(createProductionConfig(format))
-    }
-
-    if (/^(global|esm)(-runtime)?/.test(format)) {
-      packageConfigs.push(createMinifiedConfig(format))
-    }
   })
 }
 
@@ -68,18 +58,13 @@ function createConfig(format, output, plugins = []) {
     logger.printErrorAndExit(`Invalid format: "${format}"`)
   }
 
-  const isProductionBuild = process.env.__DEV__ === 'false' || /\.prod\.js$/.test(output.file)
-  const isESMBuild = format === 'esm'
+  const isProductionBuild = process.env.__DEV__ === 'false'
   const isNodeBuild = format === 'cjs'
-  const isGlobalBuild = format === 'global'
+  const isESMBuild = format === 'esm'
 
   output.exports = 'named'
   output.sourcemap = !!process.env.SOURCE_MAP
   output.externalLiveBindings = false
-
-  if (isGlobalBuild) {
-    output.name = packageOptions.name
-  }
 
   const shouldEmitDeclarations = pkg.types && process.env.TYPES != null && !hasTSChecked
 
@@ -102,39 +87,18 @@ function createConfig(format, output, plugins = []) {
   hasTSChecked = true
 
   const entryFile = `src/index.ts`
-  let external = []
-
-  if (!isGlobalBuild) {
-    external = [...Object.keys(pkg.peerDependencies || {})]
-  }
-
-  const nodePlugins =
-    format === 'cjs' && Object.keys(pkg.devDependencies || {}).length
-      ? [
-          // @ts-ignore
-          require('@rollup/plugin-commonjs')({
-            sourceMap: false,
-          }),
-          ...(format === 'cjs'
-            ? []
-            : // @ts-ignore
-              [require('rollup-plugin-polyfill-node')()]),
-          require('@rollup/plugin-node-resolve').nodeResolve(),
-        ]
-      : []
 
   return {
     input: resolve(entryFile),
-    // Global and Browser ESM builds inlines everything so that they can be
-    // used alone.
-    external,
+    external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
       json({
         namedExports: false,
       }),
       tsPlugin,
-      createReplacePlugin(isProductionBuild, isESMBuild, isGlobalBuild, isNodeBuild),
-      ...nodePlugins,
+      createReplacePlugin(isProductionBuild, isNodeBuild, isESMBuild),
+      nodeResolve(),
+      commonjs(),
       ...plugins,
     ],
     output,
@@ -149,18 +113,16 @@ function createConfig(format, output, plugins = []) {
   }
 }
 
-function createReplacePlugin(isProduction, isESMBuild, isGlobalBuild, isNodeBuild) {
+function createReplacePlugin(isProduction, isNodeBuild, isESMBuild) {
   const replacements = {
-    __COMMIT__: `"${process.env.COMMIT}"`,
     __VERSION__: `"${masterVersion}"`,
     __DEV__: isESMBuild
       ? // preserve to be handled by bundlers
         `(process.env.NODE_ENV !== 'production')`
       : // hard coded dev/prod builds
         !isProduction,
-    __GLOBAL__: isGlobalBuild,
-    __ESM__: isESMBuild,
     __NODE_JS__: isNodeBuild,
+    __ESM__: isESMBuild,
   }
 
   // allow inline overrides like
@@ -175,33 +137,4 @@ function createReplacePlugin(isProduction, isESMBuild, isGlobalBuild, isNodeBuil
     values: replacements,
     preventAssignment: true,
   })
-}
-
-function createProductionConfig(format) {
-  return createConfig(format, {
-    file: resolve(`dist/${name}.${format}.prod.js`),
-    format: outputConfigs[format].format,
-  })
-}
-
-function createMinifiedConfig(format) {
-  const { terser } = require('rollup-plugin-terser')
-
-  return createConfig(
-    format,
-    {
-      file: outputConfigs[format].file.replace(/\.js$/, '.prod.js'),
-      format: outputConfigs[format].format,
-    },
-    [
-      terser({
-        module: /^esm/.test(format),
-        compress: {
-          ecma: 2015,
-          pure_getters: true,
-        },
-        safari10: true,
-      }),
-    ]
-  )
 }

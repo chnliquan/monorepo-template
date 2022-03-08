@@ -17,7 +17,7 @@ async function main() {
     logger.printErrorAndExit('Your git status is not clean. Aborting.')
   }
 
-  // run tests before release
+  // run tests before releadse
   step('Running tests ...')
   if (!skipTests) {
     await run(bin('jest'), ['--clearCache'])
