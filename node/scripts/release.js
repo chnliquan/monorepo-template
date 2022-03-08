@@ -1,6 +1,6 @@
 const path = require('path')
-const { minimist, run, logger } = require('@eljs/node-utils')
-const { step, release } = require('@eljs/release')
+const { minimist, run } = require('@eljs/node-utils')
+const { logger, release } = require('@eljs/release')
 
 const args = minimist(process.argv.slice(2))
 const skipTests = args.skipTests
@@ -18,16 +18,16 @@ async function main() {
   }
 
   // run tests before releadse
-  step('Running tests ...')
+  logger.step('Running tests ...')
   if (!skipTests) {
     await run(bin('jest'), ['--clearCache'])
-    await run('pnpm', ['test:once'])
+    await run('pnpm', ['test:once', '--', '--bail'])
   } else {
     console.log(`(skipped)`)
   }
 
   // build all packages with types
-  step('Building all packages ...')
+  logger.step('Building all packages ...')
   if (!skipBuild) {
     await run('pnpm', ['run', 'build', '--', '--release'])
   } else {

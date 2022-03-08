@@ -1,9 +1,6 @@
 # javascript
-bin/
-lib/
+dist/
 scripts/
-cjs/
-esm/
 
 # settiing
 *.base.js

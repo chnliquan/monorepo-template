@@ -30,6 +30,6 @@ async function dev(target) {
     return
   }
 
-  step(`Watching ${chalk.green.bold(pkg.name)}`)
+  step(`Watching ${chalk.cyanBright.bold(pkg.name)}`)
   await run(bin('rollup'), ['-c', '-w', '--environment', [`FORMATS:cjs`, `TARGET:${target}`]])
 }

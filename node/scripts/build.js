@@ -53,7 +53,7 @@ async function build(target) {
 
   const env = (buildOptions && buildOptions.env) || (devOnly ? 'development' : 'production')
 
-  step(`Rolling up bundles for ${chalk.green.bold(name)}`)
+  step(`Rolling up bundles for ${chalk.cyanBright.bold(name)}`)
   await run(bin('rollup'), [
     '-c',
     '--environment',
@@ -72,7 +72,7 @@ async function build(target) {
   // build types
   if (buildTypes && types) {
     console.log()
-    step(`Rolling up type definitions for ${chalk.green.bold(name)}`)
+    step(`Rolling up type definitions for ${chalk.cyanBright.bold(name)}`)
     console.log()
 
     const { Extractor, ExtractorConfig } = require('@microsoft/api-extractor')
@@ -95,5 +95,6 @@ async function build(target) {
   }
 
   console.log()
-  logger.success(`Building ${chalk.green.bold(name)} successfully.`)
+  logger.success(`Compiled ${chalk.cyanBright.bold(name)} successfully.`)
+  console.log()
 }
