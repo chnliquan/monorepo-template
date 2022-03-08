@@ -10,7 +10,7 @@
     "lint": "eslint 'packages/**/*.@(js|ts)'",
     "format": "prettier --write 'packages/**/*.@(js|ts)'",
     "test": "npm run test:once -- --watch",
-    "test:once": "jest --runInBand --colors --bail --forceExit",
+    "test:once": "jest --runInBand --colors --forceExit",
     "coverage": "codecov",
     "preinstall": "node ./scripts/preinstall.js",
     "release": "node scripts/release.js"
@@ -35,8 +35,8 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
-    "@eljs/node-utils": "0.4.1",
-    "@eljs/release": "0.5.0",
+    "@eljs/node-utils": "^0.5.0",
+    "@eljs/release": "^0.5.2",
     "@microsoft/api-extractor": "^7.19.4",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-json": "^4.1.0",

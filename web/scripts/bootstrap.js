@@ -18,7 +18,7 @@ files.forEach(shortName => {
   }
 
   const name = `@<%= name %>/${shortName}`
-  step(`Initializing ${chalk.green.bold(name)}`)
+  step(`Initializing ${chalk.cyanBright.bold(name)}`)
   console.log()
 
   ensurePkgJson(name, shortName)

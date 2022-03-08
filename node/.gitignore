@@ -18,8 +18,5 @@ coverage/
 node_modules/
 
 # Custermize
-lib/
-cjs/
-esm/
-umd/
 dist/
+*.local.*
