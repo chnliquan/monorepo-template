@@ -2,6 +2,8 @@
 import path from 'path'
 import ts from 'rollup-plugin-typescript2'
 import replace from '@rollup/plugin-replace'
+import nodeResolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { logger } from '@eljs/node-utils'
 
@@ -105,23 +107,8 @@ function createConfig(format, output, plugins = []) {
   let external = []
 
   if (!isGlobalBuild) {
-    external = [...Object.keys(pkg.peerDependencies || {})]
+    external = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})]
   }
-
-  const nodePlugins =
-    format === 'cjs' && Object.keys(pkg.devDependencies || {}).length
-      ? [
-          // @ts-ignore
-          require('@rollup/plugin-commonjs')({
-            sourceMap: false,
-          }),
-          ...(format === 'cjs'
-            ? []
-            : // @ts-ignore
-              [require('rollup-plugin-polyfill-node')()]),
-          require('@rollup/plugin-node-resolve').nodeResolve(),
-        ]
-      : []
 
   return {
     input: resolve(entryFile),
@@ -134,7 +121,8 @@ function createConfig(format, output, plugins = []) {
       }),
       tsPlugin,
       createReplacePlugin(isProductionBuild, isESMBuild, isGlobalBuild, isNodeBuild),
-      ...nodePlugins,
+      nodeResolve(),
+      commonjs(),
       ...plugins,
     ],
     output,
@@ -151,7 +139,6 @@ function createConfig(format, output, plugins = []) {
 
 function createReplacePlugin(isProduction, isESMBuild, isGlobalBuild, isNodeBuild) {
   const replacements = {
-    __COMMIT__: `"${process.env.COMMIT}"`,
     __VERSION__: `"${masterVersion}"`,
     __DEV__: isESMBuild
       ? // preserve to be handled by bundlers
