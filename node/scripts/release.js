@@ -1,6 +1,7 @@
-const path = require('path')
 const { minimist, run } = require('@eljs/node-utils')
 const { logger, release } = require('@eljs/release')
+
+const { bin } = require('./utils')
 
 const args = minimist(process.argv.slice(2))
 const skipTests = args.skipTests
@@ -37,8 +38,4 @@ async function main() {
   release({
     checkGitStatus: false,
   })
-}
-
-function bin(name) {
-  return path.resolve(__dirname, '../node_modules/.bin/' + name)
 }

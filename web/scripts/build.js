@@ -95,6 +95,6 @@ async function build(target) {
   }
 
   console.log()
-  logger.success(`Compiled ${chalk.cyanBright.bold(name)} successfully.`)
+  logger.done(`Compiled ${chalk.cyanBright.bold(name)} successfully.`)
   console.log()
 }

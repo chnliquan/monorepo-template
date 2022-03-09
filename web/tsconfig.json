@@ -17,7 +17,7 @@
     "jsx": "react",
     "lib": ["esnext", "dom"],
     "paths": {
-      "@<%= name %>/*": ["packages/*/src"]
+      "@<%= locals.name %>/*": ["packages/*/src"]
     }
   },
   "include": ["packages/*/src", "packages/global.d.ts"]

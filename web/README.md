@@ -1,3 +1,3 @@
-# <%= name %>
+# <%= locals.name %>
 
-<%= description %>
+<%= locals.description %>

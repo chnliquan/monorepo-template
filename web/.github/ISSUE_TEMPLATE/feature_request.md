@@ -1,6 +1,6 @@
 ---
 name: '🚀 Feature Request'
-about: Suggest an idea for <%= name %>
+about: Suggest an idea for <%= locals.name %>
 title: 'Feature: '
 labels: 'enhancement'
 ---
