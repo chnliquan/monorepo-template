@@ -17,7 +17,7 @@ files.forEach(shortName => {
     return
   }
 
-  const name = `@<%= name %>/${shortName}`
+  const name = `@<%= locals.name %>/${shortName}`
   step(`Initializing ${chalk.cyanBright.bold(name)}`)
   console.log()
 
@@ -52,17 +52,13 @@ function ensurePkgJson(name, shortName) {
       files: [`index.js`, `dist`],
       repository: {
         type: 'git',
-        url: '<%= gitUrl %>',
+        url: '<%= locals.gitUrl %>',
       },
-      homepage: `<%= gitHref %>/tree/master/packages/${shortName}#readme`,
+      homepage: `<%= locals.gitHref %>/tree/master/packages/${shortName}#readme`,
       bugs: {
-        url: '<%= gitHref %>/issues',
+        url: '<%= locals.gitHref %>/issues',
       },
-      author: '<%= author %>',
-      publishConfig: {
-        registry: '<%= registry %>',
-        access: 'public',
-      },
+      author: '<%= locals.author %>',
       license: 'MIT',
     }
 
@@ -119,7 +115,11 @@ function ensureRootIndex(shortName) {
       `
 'use strict'
 
-module.exports = require('./dist/${shortName}.cjs.js')
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./dist/${shortName}.cjs.prod.js')
+} else {
+  module.exports = require('./dist/${shortName}.cjs.js')
+}
     `.trim() + '\n'
     )
   }
