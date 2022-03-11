@@ -11,7 +11,8 @@
   },
 
   "dtsRollup": {
-    "enabled": true
+    "enabled": true,
+    "untrimmedFilePath": ""
   },
 
   "tsdocMetadata": {

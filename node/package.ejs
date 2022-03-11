@@ -2,7 +2,6 @@
   "name": "<%= locals.name %>",
   "version": "0.0.0",
   "description": "<%= locals.description %>",
-  "private": true,
   "scripts": {
     "boot": "node scripts/bootstrap.js",
     "dev": "node scripts/dev.js",
@@ -11,7 +10,7 @@
     "format": "prettier --write 'packages/**/*.@(js|ts)'",
     "test": "npm run test:once -- --watch",
     "test:once": "jest --runInBand --colors --forceExit",
-    "coverage": "codecov",
+    "coverage": "<% if (locals.github) { %>codecov<% } else { %>jest --coverage<% } %>",
     "preinstall": "node ./scripts/preinstall.js",
     "release": "node scripts/release.js"
   },
@@ -36,7 +35,7 @@
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
     "@eljs/node-utils": "^0.6.0",
-    "@eljs/release": "^0.5.2",
+    "@eljs/release": "^0.6.0",
     "@microsoft/api-extractor": "^7.19.4",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-json": "^4.1.0",
