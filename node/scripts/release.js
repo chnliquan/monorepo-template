@@ -7,7 +7,10 @@ const args = minimist(process.argv.slice(2))
 const skipTests = args.skipTests
 const skipBuild = args.skipBuild
 
-main()
+main().catch(err => {
+  console.error(err)
+  process.exit(1)
+})
 
 async function main() {
   const { stdout } = await run('git', ['status', '--porcelain'], {
@@ -22,7 +25,7 @@ async function main() {
   logger.step('Running tests ...')
   if (!skipTests) {
     await run(bin('jest'), ['--clearCache'])
-    await run('pnpm', ['run', 'test:once', '--', '--bail'])
+    await run('pnpm', ['run', 'test:once', '--', '--bail', '--passWithNoTests'])
   } else {
     console.log(`(skipped)`)
   }

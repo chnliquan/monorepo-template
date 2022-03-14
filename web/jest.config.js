@@ -1,4 +1,4 @@
-// https://github.com/facebook/jest/issues/3112
+// https://jestjs.io/docs/configuration
 module.exports = {
   testEnvironment: 'jsdom',
   preset: 'ts-jest',
