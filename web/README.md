@@ -25,7 +25,8 @@ $ pnpm i
 3. Create sub package（optional）
 
 ```bash
-$ mkdir package name
+$ cd packages
+$ mkdir <package-name>
 $ pnpm run boot
 ```
 
