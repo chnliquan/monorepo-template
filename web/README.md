@@ -22,11 +22,11 @@ $ git clone <%= locals.gitUrl %>
 $ pnpm i
 ```
 
-3. Create sub package
+3. Create sub package（optional）
 
 ```bash
 $ mkdir package name
-$ npm run boot
+$ pnpm run boot
 ```
 
 4. Commit with scope semantically
