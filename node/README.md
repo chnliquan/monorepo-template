@@ -2,12 +2,6 @@
 
 <%= locals.description %>
 
-# Getting Started
-
-```bash
-
-```
-
 # Development
 
 1. Download
@@ -26,7 +20,7 @@ $ pnpm i
 
 ```bash
 $ cd packages
-$ mkdir <package-name>
+$ mkdir <sub-package-name>
 $ pnpm run boot
 ```
 

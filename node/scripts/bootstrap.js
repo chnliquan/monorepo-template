@@ -89,7 +89,28 @@ function ensureReadme(name, shortName) {
   const readmePath = path.join(packagesDir, shortName, `README.md`)
 
   if (args.force || !fs.existsSync(readmePath)) {
-    fs.writeFileSync(readmePath, `# ${name}`)
+    fs.writeFileSync(
+      readmePath,
+      `
+# ${name}
+
+# Getting Started
+
+\`\`\`bash
+$ npm i ${shortName}
+// or
+$ yarn i ${shortName}
+\`\`\`
+
+# Development
+
+\`\`\`bash
+$ npm run dev ${shortName}
+\`\`\`
+
+> Run this command in the root directory
+`.trim() + '\n'
+    )
   }
 }
 
@@ -120,7 +141,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   module.exports = require('./dist/${shortName}.cjs.js')
 }
-    `.trim() + '\n'
+`.trim() + '\n'
     )
   }
 }
