@@ -94,12 +94,14 @@ function ensureReadme(name, shortName) {
       `
 # ${name}
 
+${shortName}
+
 # Getting Started
 
 \`\`\`bash
-$ npm i ${shortName}
+$ npm i ${name}
 // or
-$ yarn i ${shortName}
+$ yarn i ${name}
 \`\`\`
 
 # Development
