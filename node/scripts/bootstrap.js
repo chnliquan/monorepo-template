@@ -45,7 +45,7 @@ function ensurePkgJson(name, shortName) {
       name,
       version,
       description: name,
-      keywords: [shortName],
+      keywords: ['<%= locals.name %>', shortName],
       main: 'index.js',
       types: `dist/${shortName}.d.ts`,
       module: `dist/${shortName}.esm.js`,
@@ -99,9 +99,9 @@ ${shortName}
 # Getting Started
 
 \`\`\`bash
-$ npm i ${name}
+$ npm i ${name} -S
 // or
-$ yarn i ${name}
+$ yarn add ${name}
 \`\`\`
 
 # Development
@@ -125,7 +125,12 @@ function ensureSrcIndex(shortName) {
       fs.mkdirSync(srcDir)
     }
 
-    fs.writeFileSync(indexPath, ``)
+    fs.writeFileSync(
+      indexPath,
+      `
+export {}
+`.trim() + '\n'
+    )
   }
 }
 
@@ -162,7 +167,7 @@ function ensureApiExtractorConfig(shortName) {
     "publicTrimmedFilePath": "./dist/<unscopedPackageName>.d.ts"
   }
 }
-`.trim()
+`.trim() + '\n'
     )
   }
 }

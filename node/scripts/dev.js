@@ -6,7 +6,7 @@ const { targets: allTargets, fuzzyMatchTarget, bin, runParallel } = require('./u
 
 const args = minimist(process.argv.slice(2))
 const targets = args._
-const formats = args.formats || args.f
+const formats = args.formats || args.f || 'cjs'
 const buildTypes = args.t || args.types
 const devAllMatching = args.all || args.a
 const step = logger.step('Dev')
@@ -39,7 +39,7 @@ async function dev(target) {
       '-c',
       '-w',
       '--environment',
-      [`FORMATS:${formats || 'cjs'}`, `TARGET:${target}`, `TYPES:true`],
+      [`TARGET:${target}`, `FORMATS:${formats}`, `TYPES:true`].filter(Boolean).join(','),
     ])
 
     watch.stdout.on('data', data => {
@@ -82,7 +82,7 @@ async function dev(target) {
       '-c',
       '-w',
       '--environment',
-      [`FORMATS:${formats || 'cjs'}`, `TARGET:${target}`],
+      [`TARGET:${target}`, `FORMATS:${formats}`].filter(Boolean).join(','),
     ])
   }
 }
