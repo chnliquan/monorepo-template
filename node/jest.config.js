@@ -24,7 +24,7 @@ module.exports = {
   watchPathIgnorePatterns: ['/node_modules/', '/dist/', '/.git/'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   moduleNameMapper: {
-    '^@test/(.*?)$': '<rootDir>/packages/$1/src',
+    '^@<%= locals.shortName %>/(.*?)$': '<rootDir>/packages/$1/src',
   },
   testMatch: ['<rootDir>/packages/**/__tests__/**/*spec.[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/', '/examples/__tests__'],
