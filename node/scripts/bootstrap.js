@@ -98,11 +98,22 @@ ${shortName}
 
 # Getting Started
 
+1. Installation
+
 \`\`\`bash
 $ npm i ${name} -S
 // or
 $ yarn add ${name}
 \`\`\`
+
+2. Usage
+
+\`\`\`ts
+import ${shortName} from '${name}'
+\`\`\`
+
+# API
+
 
 # Development
 
@@ -110,7 +121,7 @@ $ yarn add ${name}
 $ npm run dev ${shortName}
 \`\`\`
 
-> Run this command in the root directory
+> Run this command in the root directory.
 `.trim() + '\n'
     )
   }
