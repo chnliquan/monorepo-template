@@ -12,6 +12,7 @@
     "test:once": "jest --runInBand --colors --forceExit",
     "coverage": "<% if (locals.github) { %>codecov<% } else { %>jest --coverage<% } %>",
     "preinstall": "node ./scripts/preinstall.js",
+    "prepare": "husky install",
     "release": "node scripts/release.js"
   },
   "repository": {
