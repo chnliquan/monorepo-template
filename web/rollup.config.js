@@ -1,10 +1,12 @@
 // @ts-check
 import path from 'path'
 import ts from 'rollup-plugin-typescript2'
+import json from '@rollup/plugin-json'
 import replace from '@rollup/plugin-replace'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import json from '@rollup/plugin-json'
+import postcss from 'rollup-plugin-postcss'
+import image from '@rollup/plugin-image'
 import { logger } from '@eljs/node-utils'
 
 if (!process.env.TARGET) {
@@ -116,13 +118,15 @@ function createConfig(format, output, plugins = []) {
     // used alone.
     external,
     plugins: [
+      tsPlugin,
       json({
         namedExports: false,
       }),
-      tsPlugin,
       createReplacePlugin(isProductionBuild, isESMBuild, isGlobalBuild, isNodeBuild),
       nodeResolve(),
       commonjs(),
+      postcss(),
+      image(),
       ...plugins,
     ],
     output,
@@ -130,9 +134,6 @@ function createConfig(format, output, plugins = []) {
       if (!/Circular/.test(msg)) {
         warn(msg)
       }
-    },
-    treeshake: {
-      moduleSideEffects: false,
     },
     watch: {
       exclude: ['node_modules/**', 'dist/**'],

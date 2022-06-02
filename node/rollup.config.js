@@ -1,10 +1,10 @@
 // @ts-check
 import path from 'path'
 import ts from 'rollup-plugin-typescript2'
+import json from '@rollup/plugin-json'
 import replace from '@rollup/plugin-replace'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import json from '@rollup/plugin-json'
 import { logger } from '@eljs/node-utils'
 
 if (!process.env.TARGET) {
@@ -92,10 +92,10 @@ function createConfig(format, output, plugins = []) {
     input: resolve(entryFile),
     external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
+      tsPlugin,
       json({
         namedExports: false,
       }),
-      tsPlugin,
       createReplacePlugin(isProductionBuild, isNodeBuild, isESMBuild),
       nodeResolve(),
       commonjs(),
