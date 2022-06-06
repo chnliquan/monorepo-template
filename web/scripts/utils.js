@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { isDirectory, logger } = require('@eljs/node-utils')
+const { chalk, isDirectory, logger } = require('@eljs/node-utils')
 
 const targets = fs.readdirSync('packages').filter(file => {
   if (!isDirectory(`packages/${file}`)) {

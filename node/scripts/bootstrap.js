@@ -118,10 +118,21 @@ import ${shortName} from '${name}'
 # Development
 
 \`\`\`bash
-$ npm run dev ${shortName}
+// dev
+$ pnpm dev ${shortName}
+// build
+$ pnpm build ${shortName} -t
 \`\`\`
 
-> Run this command in the root directory.
+> Run the command in the root directory.
+
+# Publish
+
+\`\`\`bash
+$ pnpm release
+\`\`\`
+
+> Run the command in the root directory.
 `.trim() + '\n'
     )
   }
