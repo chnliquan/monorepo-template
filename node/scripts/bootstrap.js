@@ -2,7 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
-const { minimist, isDirectory, logger, chalk } = require('@eljs/node-utils')
+const { minimist, isDirectory, logger, chalk, camelize } = require('@eljs/node-utils')
 
 const args = minimist(process.argv.slice(2))
 const version = require('../package.json').version
@@ -109,7 +109,7 @@ $ yarn add ${name}
 2. Usage
 
 \`\`\`ts
-import ${shortName} from '${name}'
+import ${camelize(shortName)} from '${name}'
 \`\`\`
 
 # API
@@ -122,6 +122,13 @@ import ${shortName} from '${name}'
 $ pnpm dev ${shortName}
 // build
 $ pnpm build ${shortName} -t
+
+Options:
+  -t, --types    build source and type declaration
+  -f, --formats  specify the build type, \`cjs\`、\`esm\`、\`iife\`, default is \`cjs\`、\`esm\`
+  -d, --devOnly  build dev bundle only
+  -p, --prodOnly build prod bundle only
+  -a, --all      whether build all matching package
 \`\`\`
 
 > Run the command in the root directory.
@@ -130,6 +137,10 @@ $ pnpm build ${shortName} -t
 
 \`\`\`bash
 $ pnpm release
+
+Options:
+  --skipTests skip package test
+  --skipBuild skip package build
 \`\`\`
 
 > Run the command in the root directory.
