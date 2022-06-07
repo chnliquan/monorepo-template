@@ -1,13 +1,19 @@
 const path = require('path')
 const fs = require('fs')
-const { chalk, isDirectory, logger } = require('@eljs/node-utils')
+const { isDirectory, existsSync, logger, chalk } = require('@eljs/node-utils')
 
 const targets = fs.readdirSync('packages').filter(file => {
   if (!isDirectory(`packages/${file}`)) {
     return false
   }
 
-  const pkg = require(`../packages/${file}/package.json`)
+  const pkgJSONPath = path.resolve(__dirname, `../packages/${file}/package.json`)
+
+  if (!existsSync(pkgJSONPath)) {
+    return false
+  }
+
+  const pkg = require(pkgJSONPath)
 
   if (pkg.private) {
     return false
