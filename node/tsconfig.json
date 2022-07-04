@@ -15,7 +15,7 @@
     "esModuleInterop": true,
     "removeComments": false,
     "jsx": "react",
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext"],
     "paths": {
       "@<%= locals.name %>/*": ["packages/*/src"]
     }
