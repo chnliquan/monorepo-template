@@ -13,6 +13,7 @@ if (!process.env.TARGET) {
 
 const masterVersion = require('./package.json').version
 const packagesDir = path.resolve(__dirname, 'packages')
+// @ts-ignore
 const pkgDir = path.resolve(packagesDir, process.env.TARGET)
 const pkg = require(resolve(`package.json`))
 const packageOptions = pkg.buildOptions || {}

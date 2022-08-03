@@ -11,6 +11,7 @@
     "test": "npm run test:once -- --watch",
     "test:once": "jest --runInBand --colors --forceExit",
     "coverage": "<% if (locals.github) { %>codecov<% } else { %>jest --coverage<% } %>",
+    "add-owner": "node ./scripts/npm-add-owner.js",
     "preinstall": "node ./scripts/preinstall.js",
     "prepare": "husky install",
     "release": "node scripts/release.js"
