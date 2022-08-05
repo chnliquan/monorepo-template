@@ -94,8 +94,9 @@ function ensureReadme(name, shortName) {
       `
 # ${name}
 
-${shortName}
+<%= locals.name %> ${shortName}
 
+<% if (locals.github) { %>
 # Getting Started
 
 1. Installation
@@ -131,9 +132,18 @@ Options:
   -a, --all      whether build all matching package
 \`\`\`
 
-> Run the command in the root directory.
+> Run in the root directory.
 
 # Publish
+
+1. [commit semantically with scope](https://www.conventionalcommits.org/en/v1.0.0/#summary) 
+
+\`\`\`bash
+$ git commit -m 'feat(${shortName}): add some feature'
+$ git commit -m 'fix(${shortName}): fix some bug'
+\`\`\`
+
+2. release
 
 \`\`\`bash
 $ pnpm release
@@ -143,7 +153,66 @@ Options:
   --skipBuild skip package build
 \`\`\`
 
-> Run the command in the root directory.
+> Run in the root directory.
+<% } else { %>
+# 快速开始
+
+1. 安装
+
+\`\`\`bash
+$ npm i ${name} -S
+// or
+$ yarn add ${name}
+\`\`\`
+
+2. 使用
+
+\`\`\`ts
+import ${camelize(shortName)} from '${name}'
+\`\`\`
+
+# API
+
+
+# 开发
+
+\`\`\`bash
+// dev
+$ pnpm dev ${shortName}
+// build
+$ pnpm build ${shortName} -t
+
+Options:
+  -t, --types    build source and type declaration
+  -f, --formats  specify the build type, \`cjs\`、\`esm\`、\`iife\`, default is \`cjs\`、\`esm\`
+  -d, --devOnly  build dev bundle only
+  -p, --prodOnly build prod bundle only
+  -a, --all      whether build all matching package
+\`\`\`
+
+> 在项目根路径下执行
+
+# 发布
+
+1. [语义化提交Commit](https://www.conventionalcommits.org/en/v1.0.0/#summary) 
+
+\`\`\`bash
+$ git commit -m 'feat(${shortName}): add some feature'
+$ git commit -m 'fix(${shortName}): fix some bug'
+\`\`\`
+
+2. 执行脚本
+
+\`\`\`bash
+$ pnpm release
+
+Options:
+  --skipTests skip package test
+  --skipBuild skip package build
+\`\`\`
+
+> 在项目根路径下执行
+<% } %>
 `.trim() + '\n'
     )
   }

@@ -1,4 +1,3 @@
-// @ts-check
 import path from 'path'
 import ts from 'rollup-plugin-typescript2'
 import json from '@rollup/plugin-json'
@@ -135,6 +134,9 @@ function createConfig(format, output, plugins = []) {
       if (!/Circular/.test(msg)) {
         warn(msg)
       }
+    },
+    treeshake: {
+      moduleSideEffects: false,
     },
     watch: {
       exclude: ['node_modules/**', 'dist/**'],

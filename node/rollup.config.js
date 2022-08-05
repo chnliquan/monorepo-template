@@ -1,4 +1,3 @@
-// @ts-check
 import path from 'path'
 import ts from 'rollup-plugin-typescript2'
 import json from '@rollup/plugin-json'

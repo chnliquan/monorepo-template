@@ -11,8 +11,8 @@
     "test": "npm run test:once -- --watch",
     "test:once": "jest --runInBand --colors --forceExit",
     "coverage": "<% if (locals.github) { %>codecov<% } else { %>jest --coverage<% } %>",
-    "add-owner": "node ./scripts/npm-add-owner.js",
-    "preinstall": "node ./scripts/preinstall.js",
+    "add-owner": "node scripts/npm-add-owner.js",
+    "preinstall": "node scripts/preinstall.js",
     "prepare": "husky install",
     "release": "node scripts/release.js"
   },
@@ -47,12 +47,12 @@
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "prettier": "^2.5.1",
-    "rollup": "^2.69.0",
-    "rollup-plugin-typescript2": "^0.31.2",
+    "rollup": "^2.77.2",
+    "rollup-plugin-typescript2": "^0.32.1",
     "ts-jest": "^27.1.3",
-    "ts-node": "^10.6.0",
-    "tslib": "^2.3.1",
-    "typescript": "4.5.5"
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
   },
   "author": "<%= locals.author %>",
   "publishConfig": {
