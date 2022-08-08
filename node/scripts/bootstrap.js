@@ -88,7 +88,7 @@ function ensurePkgJson(name, shortName) {
 function ensureReadme(name, shortName) {
   const readmePath = path.join(packagesDir, shortName, `README.md`)
 
-  if (args.force || !fs.existsSync(readmePath)) {
+  if (!fs.existsSync(readmePath)) {
     fs.writeFileSync(
       readmePath,
       `
@@ -222,7 +222,7 @@ function ensureSrcIndex(shortName) {
   const srcDir = path.join(packagesDir, shortName, `src`)
   const indexPath = path.join(packagesDir, shortName, `src/index.ts`)
 
-  if (args.force || !fs.existsSync(indexPath)) {
+  if (!fs.existsSync(indexPath)) {
     if (!fs.existsSync(srcDir)) {
       fs.mkdirSync(srcDir)
     }
@@ -239,7 +239,7 @@ export {}
 function ensureRootIndex(shortName) {
   const rootIndexPath = path.join(packagesDir, shortName, 'index.js')
 
-  if (args.force || !fs.existsSync(rootIndexPath)) {
+  if (!fs.existsSync(rootIndexPath)) {
     fs.writeFileSync(
       rootIndexPath,
       `
@@ -258,7 +258,7 @@ if (process.env.NODE_ENV === 'production') {
 function ensureApiExtractorConfig(shortName) {
   const apiExtractorConfigPath = path.join(packagesDir, shortName, `api-extractor.json`)
 
-  if (args.force || !fs.existsSync(apiExtractorConfigPath)) {
+  if (!fs.existsSync(apiExtractorConfigPath)) {
     fs.writeFileSync(
       apiExtractorConfigPath,
       `
