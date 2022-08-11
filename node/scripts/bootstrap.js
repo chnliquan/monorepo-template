@@ -5,12 +5,15 @@ const path = require('path')
 const { minimist, isDirectory, logger, chalk, camelize } = require('@eljs/node-utils')
 
 const args = minimist(process.argv.slice(2))
+const step = logger.step('Bootstrap')
 const version = require('../package.json').version
 
 const packagesDir = path.resolve(__dirname, '../packages')
-const files = fs.readdirSync(packagesDir)
+let files = fs.readdirSync(packagesDir)
 
-const step = logger.step('Bootstrap')
+if (args._.length) {
+  files = args._
+}
 
 files.forEach(shortName => {
   if (!isDirectory(path.join(packagesDir, shortName))) {
