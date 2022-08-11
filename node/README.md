@@ -23,7 +23,7 @@ $ pnpm i
 ```bash
 $ cd packages
 $ mkdir <sub-package-name>
-$ pnpm run boot
+$ pnpm boot
 ```
 
 # 脚本
@@ -38,6 +38,7 @@ $ cd packages && mkdir core
 
 // 2. 在项目根目录下执行
 $ pnpm boot
+$ pnpm boot core shared
 $ pnpm boot -f
 ```
 
@@ -65,12 +66,12 @@ $ pnpm build core
 $ pnpm build core -t
 
 // 同时打包 core 和 shared 子包
-$ pnpm build core shared
+$ pnpm build core shared -t
 ```
 
 ## 4. lint
 
-全局运行 eslint 进行代码检查
+全局运行 `eslint` 进行代码检查
 
 ```bash
 $ pnpm lint
@@ -78,15 +79,15 @@ $ pnpm lint
 
 ## 5. format
 
-全局运行 prettier 进行格式化
+全局运行 `prettier` 进行格式化
 
 ```bash
-$ pnpm lint
+$ pnpm format
 ```
 
 ## 6. test
 
-针对所有子包以 watch 模式运行单元测试
+针对所有子包以 `watch` 模式运行单元测试
 
 ```bash
 $ pnpm test
@@ -152,7 +153,7 @@ $ git commit -m 'fix: fix some bug'
 $ git pull origin master
 ```
 
-## 3. 打包（可选）
+## 3. 打包有修改的子包（可选）
 
 ```bash
 $ pnpm build core -t
