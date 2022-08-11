@@ -108,8 +108,19 @@ $ pnpm test:once
 ```bash
 $ pnpm coverage
 ```
+## 9. add-owner
 
-## 9. release
+给其他人添加 npm 包权限
+
+```bash
+// 一次添加一个
+$ pnpm add-owner zhangsan
+
+// 一次添加多个
+$ pnpm add-owner zhangsan lisi
+```
+
+## 10. release
 
 发布所有子包
 
